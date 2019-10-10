@@ -1,0 +1,16 @@
+<mat-list>
+  <mat-list-item *ngFor="let user of users">
+    <img matListAvatar src="{{user.avatar}}" alt="{{user.first_name}}">
+    <h3 matLine> {{user.first_name}} </h3>
+    <p matLine>
+      <span> {{user.last_name}} </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+
+<mat-paginator [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (pageChanged) = page
+              (page)="pageEvent = getUsers($event)">
+</mat-paginator>
