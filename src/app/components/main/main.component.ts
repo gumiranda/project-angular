@@ -14,6 +14,14 @@ export class MainComponent implements OnInit {
   currentPage = 1;
   username;
   users: Array<any> = [];
+  user = {
+    avatar:"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg",
+    email:"",
+    first_name:"",
+    id:0,
+    last_name:""
+  };
+
   constructor(private userService: UsersService) {}
 
   ngOnInit() {
@@ -45,6 +53,9 @@ export class MainComponent implements OnInit {
     this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
   }
   inserirUsuario(){
-    console.log(this.username);
+    console.log(this.users);
+    this.user.id = this.length + 1;
+    this.users = [...this.users, this.user];
   }
+
 }

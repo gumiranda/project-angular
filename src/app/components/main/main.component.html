@@ -1,9 +1,10 @@
 <mat-list>
   <mat-list-item *ngFor="let user of users">
     <img matListAvatar src="{{user.avatar}}" alt="{{user.first_name}}">
-    <h3 matLine> {{user.first_name}} </h3>
+    <h3 matLine> {{user.first_name}} {{user.last_name}} </h3>
     <p matLine>
-      <span> {{user.last_name}} </span>
+      <span> {{user.email}} </span>
+
     </p>
   </mat-list-item>
 </mat-list>
@@ -17,7 +18,15 @@
 <div class="example-container">
   <mat-form-field>
     <input matInput placeholder="Digite o nome do usuário"
-    (input)="username = $event.target.value">
+    (input)="user.first_name = $event.target.value">
   </mat-form-field>
-  <button (click)="inserirUsuario()" mat-flat-button color="primary">Inserir</button>
+  <mat-form-field>
+    <input matInput placeholder="Digite o sobrenome do usuário"
+    (input)="user.last_name = $event.target.value">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Digite o email do usuário"
+    (input)="user.email = $event.target.value">
+  </mat-form-field>
+  <button (click)="inserirUsuario()" class="button-insert" mat-flat-button color="primary">Inserir</button>
 </div>
