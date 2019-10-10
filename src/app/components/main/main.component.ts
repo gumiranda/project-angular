@@ -16,24 +16,23 @@ export class MainComponent implements OnInit {
   username;
   users: Array<any> = [];
   user = {
-    avatar:"https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg",
-    email:"",
-    first_name:"",
-    id:0,
-    last_name:""
+    avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg",
+    email: "",
+    first_name: "",
+    id: 0,
+    last_name: ""
   };
 
   constructor(private userService: UsersService) {}
 
   ngOnInit() {
     this.users = JSON.parse(localStorage.getItem("user"));
-    if(this.users.length === 0){
+    if (this.users.length === 0) {
       this.find(1);
-      localStorage.removeItem('users');
-      localStorage.setItem('users',JSON.stringify(this.users));
+      localStorage.removeItem("users");
+      localStorage.setItem("users", JSON.stringify(this.users));
     }
-
-}
+  }
   find(page) {
     var httpParam = new HttpParams();
     httpParam = httpParam.set("per_page", this.pageSize.toString());
@@ -55,20 +54,19 @@ export class MainComponent implements OnInit {
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     this.pageSizeOptions = setPageSizeOptionsInput.split(",").map(str => +str);
   }
-  inserirUsuario(){
+  inserirUsuario() {
     console.log(this.users);
     this.user.id = this.length + 1;
     this.users = [...this.users, this.user];
-    localStorage.removeItem('users');
-    localStorage.setItem('users',JSON.stringify(this.users));
+    localStorage.removeItem("users");
+    localStorage.setItem("users", JSON.stringify(this.users));
   }
-  removerUser(userToRemove){
-    localStorage.removeItem('users');
-    let usersFiltrados = this.users.filter((user)=>{
+  removerUser(userToRemove) {
+    localStorage.removeItem("users");
+    let usersFiltrados = this.users.filter(user => {
       return user.id !== userToRemove.id;
     });
-    localStorage.setItem('users',JSON.stringify(usersFiltrados));
+    localStorage.setItem("users", JSON.stringify(usersFiltrados));
     this.users = usersFiltrados;
   }
-
 }
