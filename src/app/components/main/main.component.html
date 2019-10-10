@@ -14,3 +14,10 @@
               (pageChanged) = page
               (page)="pageEvent = getUsers($event)">
 </mat-paginator>
+<div class="example-container">
+  <mat-form-field>
+    <input matInput placeholder="Digite o nome do usuário"
+    (input)="username = $event.target.value">
+  </mat-form-field>
+  <button (click)="inserirUsuario()" mat-flat-button color="primary">Inserir</button>
+</div>
