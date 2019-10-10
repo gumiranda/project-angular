@@ -3,8 +3,10 @@
     <img matListAvatar src="{{user.avatar}}" alt="{{user.first_name}}">
     <h3 matLine> {{user.first_name}} {{user.last_name}} </h3>
     <p matLine>
-      <span> {{user.email}} </span>
-
+      <span> {{user.email}}               <button (click)="removerUser(user)" mat-flat-button color="warn">
+        <i class="fa fa-trash"></i>
+      </button>
+      </span>
     </p>
   </mat-list-item>
 </mat-list>

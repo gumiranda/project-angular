@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { UsersService } from "src/app/services/users.service";
 import { HttpParams } from "@angular/common/http";
 import { PageEvent } from "@angular/material/paginator";
@@ -6,7 +6,8 @@ import { PageEvent } from "@angular/material/paginator";
 @Component({
   selector: "app-main",
   templateUrl: "./main.component.html",
-  styleUrls: ["./main.component.scss"]
+  styleUrls: ["./main.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
   page: number;
@@ -25,10 +26,12 @@ export class MainComponent implements OnInit {
   constructor(private userService: UsersService) {}
 
   ngOnInit() {
-    this.find(1);
-    //this.user = JSON.parse(localStorage.getItem("user"));
-//localStorage.setItem('url',this.document.location.href);
-//    localStorage.removeItem(TOKEN_NAME);
+    this.users = JSON.parse(localStorage.getItem("user"));
+    if(this.users.length === 0){
+      this.find(1);
+      localStorage.removeItem('users');
+      localStorage.setItem('users',JSON.stringify(this.users));
+    }
 
 }
   find(page) {
@@ -56,6 +59,16 @@ export class MainComponent implements OnInit {
     console.log(this.users);
     this.user.id = this.length + 1;
     this.users = [...this.users, this.user];
+    localStorage.removeItem('users');
+    localStorage.setItem('users',JSON.stringify(this.users));
+  }
+  removerUser(userToRemove){
+    localStorage.removeItem('users');
+    let usersFiltrados = this.users.filter((user)=>{
+      return user.id !== userToRemove.id;
+    });
+    localStorage.setItem('users',JSON.stringify(usersFiltrados));
+    this.users = usersFiltrados;
   }
 
 }
